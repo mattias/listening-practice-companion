@@ -19,9 +19,6 @@ FINAL_FILLERS = {"ね", "よ", "か", "な", "わ", "ぞ", "さ"}
 SHORTENABLE_PREFIXES = {"ほんとう": "ほんと", "ありがとう": "ありがと", "だいじょうぶ": "だいじょぶ"}
 SHORTENABLE_WORDS = {"ところ": "とこ"}
 
-# I-row sound + を: the vowel turns into a glide, "kusuri o" -> "kusuryo". い itself has no such form.
-I_WO_FORMS = {"き": "きょ", "し": "しょ", "ち": "ちょ", "に": "にょ", "ひ": "ひょ", "み": "みょ", "り": "りょ",
-              "ぎ": "ぎょ", "じ": "じょ", "び": "びょ", "ぴ": "ぴょ"}
 
 
 @dataclass(frozen=True)
@@ -30,15 +27,16 @@ class Phenomenon:
     example: str
     title: str
     description: str
-    # The voice can be made to say it by writing it as it is said; devoicing and nasal g it does by itself or not at all.
+    # The sentence can be written the way it is said (これは -> こりゃ), which is how people write it. A change nobody writes
+    # (薬を -> くすりょ) is left out: the voice says it right from the normal text, and a made-up spelling could change the accent.
     forceable: bool = True
 
 
 CATALOG = [
     Phenomenon("i_wo", "薬を → くすりょ", "い-row sound + を",
-               "A word ending in い, き, し, ち, に, ひ, み or り (or a voiced form) before the particle を: the two vowels run into one, 'kusuri o' sounds like 'kusuryo'."),
+               "A word ending in い, き, し, ち, に, ひ, み or り (or a voiced form) before the particle を: the two vowels run into one, 'kusuri o' sounds like 'kusuryo'. The text is written normally; the voice says it so by itself.", forceable=False),
     Phenomenon("n_particle", "本を → ほんの", "ん + を / は / に / が",
-               "ん before a particle runs into its vowel: 本を sounds like 'honno', パンは like 'panna'."),
+               "ん before a particle runs into its vowel: 本を sounds like 'honno', パンは like 'panna'. The text is written normally; the voice says it so by itself.", forceable=False),
     Phenomenon("wa", "これは → こりゃ", "Contractions with は",
                "これ/それ/あれ/どれ, て, で or に before は contract: これは → こりゃ, では → じゃ, ては → ちゃ, には → にゃ."),
     Phenomenon("te_aux", "食べている → 食べてる", "て-form + helper verb",
@@ -149,17 +147,6 @@ def _rewrite_span(morphs, match):
     """How the morphemes of a match are said, or None if this one is left as it is written."""
     span = morphs[match.start : match.end]
     pid = match.phenomenon
-    if pid == "i_wo":
-        word = span[0].reading
-        form = I_WO_FORMS.get(word[-1:])
-        return word[:-1] + form if form else None
-    if pid == "n_particle":
-        word, particle = span[0].reading, span[1].surface
-        if particle == "を":
-            return word + "の"
-        if particle == "は":
-            return word + "な"
-        return None
     if pid == "wa":
         first = span[0]
         forms = {"これ": "こりゃ", "それ": "そりゃ", "あれ": "ありゃ", "どれ": "どりゃ", "て": "ちゃ", "で": "じゃ", "に": "にゃ"}

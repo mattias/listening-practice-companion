@@ -55,8 +55,6 @@ def test_devoicing():
 
 
 def test_spoken_forms():
-    assert spoken("薬を飲んだ。", "i_wo") == "くすりょ飲んだ。"
-    assert spoken("本を読んだ。", "n_particle") == "ほんの読んだ。"
     assert spoken("これは本です。", "wa") == "こりゃ本です。"
     assert spoken("ここでは静かにして。", "wa") == "ここじゃ静かにして。"
     assert spoken("食べては駄目です。", "wa") == "食べちゃ駄目です。"
@@ -72,10 +70,13 @@ def test_spoken_forms():
     assert spoken("ところで行く。", "shortened") is None
 
 
-def test_what_cannot_be_forced():
-    # Devoicing and nasal g are not spelled; and a phenomenon that is not in the sentence gives nothing.
+def test_what_is_not_respelled():
+    # Devoicing, nasal g, and い-row + を and ん + particle are left to the voice: nobody writes 薬を as くすりょ, and a made-up
+    # spelling could change the accent. A phenomenon that is not in the sentence gives nothing either.
     assert spoken("これは本です。", "devoice_final") is None
-    assert spoken("水を飲んだ。", "i_wo") is None
+    assert spoken("薬を飲んだ。", "i_wo") is None
+    assert spoken("本を読んだ。", "n_particle") is None
+    assert spoken("水を飲んだ。", "wa") is None
 
 
 def test_known_words_rule():

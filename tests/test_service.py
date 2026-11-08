@@ -59,10 +59,17 @@ def test_generate_keeps_only_valid_sentences():
     assert "水を飲む。" not in texts
     assert texts.count("今日、薬を飲む。") == 1
     assert all("i_wo" in i["phenomena"] for i in items)
-    # Spoken as it is said, written as it is written.
+    # 薬を is not respelled: the voice says it from the normal text.
     by_text = {i["text"]: i for i in items}
-    assert by_text["今日、薬を飲む。"]["spoken"] == "今日、くすりょ飲む。"
-    assert by_text["今日、薬を飲む。"]["forced"] is True
+    assert by_text["今日、薬を飲む。"]["spoken"] == "今日、薬を飲む。"
+    assert by_text["今日、薬を飲む。"]["forced"] is False
+
+
+def test_a_written_contraction_is_forced():
+    vocab = Vocabulary(WORDS + ["これ"])
+    llm = FakeLLM(["これは本です、今日。", "これは私の本ですか。"])
+    items = generator.generate(llm, vocab, ["wa"], 1, 0, "en", rng=__import__("random").Random(1))
+    assert items and items[0]["forced"] is True and items[0]["spoken"].startswith("こりゃ")
 
 
 def test_the_proofreader_can_throw_a_sentence_out():

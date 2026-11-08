@@ -80,21 +80,21 @@ Making sentences needs the computer. **Practicing does not**: the sentences and 
 
 | | Written | Said |
 |---|---|---|
-| い-row + を | 薬を | くすりょ |
-| ん + を / は | 本を, パンは | ほんの, ぱんな |
+| い-row + を | 薬を | *kusuryo* (not respelled) |
+| ん + を / は | 本を, パンは | *honno*, *panna* (not respelled) |
 | contractions with は | これは, では, ては, には | こりゃ, じゃ, ちゃ, にゃ |
 | て-form + helper | 食べている, ておく, てしまう | 食べてる, とく, ちゃう |
 | のだ / のです / ので | 行くのです | 行くんです |
 | なければ / なくては | 行かなければ | 行かなきゃ |
 | という | 来ないという話 | 来ないって話 |
-| devoiced です / ます | です | *des* (not spelled) |
-| devoiced vowels inside words | しました | *shmashta* (not spelled) |
-| nasal が | 学校が | [ŋ] (not spelled) |
+| devoiced です / ます | です | *des* (not respelled) |
+| devoiced vowels inside words | しました | *shmashta* (not respelled) |
+| nasal が | 学校が | [ŋ] (not respelled) |
 | shortened words | 本当, ところ | ほんと, とこ |
 
-For the first eight the sentence is **written as it is said** before it goes to the voice, so the voice really says it that way. Devoicing and nasal が cannot be written, they are left to the voice.
+Where people really write the contraction (こりゃ, じゃ, ちゃ, にゃ, てる, とく, ちゃう, んだ, なきゃ, って, ほんと), the sentence is **written that way** before it goes to the voice, so the voice really says it that way; the app shows both, the written sentence and *Said as: …*. Where nobody writes it (薬を, 本を, です, devoiced vowels, nasal が) the text is left **as normal**: the Irodori voice says 薬を the way it is said by itself, and a made-up spelling like くすりょ could change the accent.
 
-**About pitch accent:** the voice model has no way to be told the accent, it guesses it from the text. Spelling the contraction out (こりゃ, てる, んだ) is common in written speech and likely sounds natural, but rarer spellings (くすりょ, ほんの) may get a flattened or different accent. Listen, and tell what sounds wrong.
+**About pitch accent:** the voice model has no way to be told the accent, it guesses it from the text. Spellings people really use are safe; that is why the others are not respelled. If a sentence sounds wrong, tell what it was.
 
 ## If something does not work
 
