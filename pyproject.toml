@@ -1,0 +1,34 @@
+[project]
+name = "listening-practice-companion"
+description = "A program on your computer that makes sound training sentences for the Listening Practice Android app"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dynamic = ["version"]
+dependencies = [
+    "janome==0.5.0",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "httpx>=0.27",
+    "pydantic>=2.6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pyinstaller"]
+
+[project.scripts]
+listening-practice-companion = "companion.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["companion"]
+
+[tool.setuptools.dynamic]
+version = { attr = "companion.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
